@@ -1,8 +1,7 @@
 const fs = require("fs");
-
 const path = require("path");
 
-const pathToData = path.join(__dirname, "../../images.json");
+const pathToData = path.join(__dirname, "../images.json");
 
 const loadData = () => {
   const buffer = fs.readFileSync(pathToData);
@@ -11,7 +10,7 @@ const loadData = () => {
 };
 
 const saveData = (data) => {
-  fs.writeFileSync(pathToData, JSON.stringify(data));
+  return fs.writeFileSync(pathToData, JSON.stringify(data));
 };
 
-module.exports = { saveData, loadData };
+module.exports = { loadData, saveData };

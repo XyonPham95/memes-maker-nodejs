@@ -1,0 +1,58 @@
+<div class="header-container col-12 text-center  text-white mx-auto">
+
+    <div class="mb-3" style="font-size: 1.2em;">
+        <div>Choose images</div>
+        <div>Add content</div>
+        <div> <a href="/memes">All memes</a></div>
+    </div>
+
+    {{#if images}}
+
+    <div class="container col-10  mx-auto ">
+        <div class="row d-flex justify-content-center">
+            {{#each images}}
+
+            <a href="/browse/{{originalname}}" name="modal" data-toggle="modal" data-target="#modal{{id}}">
+                <img id="{{id}}" src="/uploads/original/{{originalname}}" alt="{{originalname}}" class="m-2"
+                    style="max-width: 350px;" />
+
+            </a>
+
+            {{/each}}
+        </div>
+    </div>
+
+    {{/if}}
+
+    {{#each images}}
+    <form action="/memes" method="post" id="{{id}}">
+        <div class="modal fade" id="modal{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{originalname}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-dark container-fluid">
+                        <img src="/uploads/original/{{originalname}}" alt="{{originalname}}" class="img-responsive"
+                            style="max-width: 100%;" />
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <input class="col-12 my-1 py-1" name="top" placeholder="Add top sentence" />
+                        <input class="col-12 my-1 py-1" name="bottom" placeholder="Add bottom sentence" />
+                        <input type="hidden" name="id" value="{{id}}">
+                        <a href="/memes/{{originalname}}">
+                            <button type="submit" class="btn btn-primary float-right mt-1">Submit</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{{/each}}

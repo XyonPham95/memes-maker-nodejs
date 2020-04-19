@@ -1,25 +1,21 @@
+const multer = require("multer");
 const path = require("path");
-const uploadPath = path.join(__dirname, "../utils/upload.js");
 const { loadData } = require("./data");
 
-const multer = require("multer");
+const pathToUpload = path.join(__dirname, "../public/upload/original");
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadPath);
+    cb(null, pathToUpload);
   },
   filename: function (req, file, cb) {
     const allows = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
     if (!allows.includes(file.mimetype)) {
-      const err = new Error("File type not allowed.");
+      let err = new Error("Wrong file typed.");
       return cb(err, undefined);
     }
     const data = loadData();
-
-    if (data.some((item) => item.originalname === file.originalname)) {
-      const err = new Error("File already existed.");
-      return cb(err, undefined);
-    }
+    console.log("file in upload.js", file);
 
     cb(null, file.originalname);
   },
